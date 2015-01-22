@@ -1,4 +1,4 @@
 _ = require('underscore');
-var client = require('./client');
+var client = require('../base/client');
 
-client.init(2222);
+client(2222);
