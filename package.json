@@ -1,6 +1,8 @@
 {
   "dependencies":{
     "underscore": "",
+    "ws": "",
+    "express": ""
   },
   "name": "",
   "version": "0.0.1",
