@@ -1,0 +1,27 @@
+https://developer.mozilla.org/en-US/docs/Web/API/AudioContext
+
+record audio
+ - record.js?
+     https://github.com/mattdiamond/Recorderjs
+ - manually copy samples array
+
+playback
+ - audio buffer
+
+send to server
+ - array -> blob
+ - ???
+
+display waveform
+ - http://www.waveformjs.org/ ?
+ - just plot sample array?
+
+server functions
+ - accept connections
+ - accept/validate audio blobs
+ - timestamp, insert blobs into list
+ - delete old blobs
+
+ storing blobs:
+  - array of [blob id, blob data, timestamp, connection id]
+    - sorted by timestamp
