@@ -1,13 +1,16 @@
 https://developer.mozilla.org/en-US/docs/Web/API/AudioContext
 
 record audio
- - record.js?
-     https://github.com/mattdiamond/Recorderjs
- - manually copy samples array
+ [x] manually copy samples array
+   - chrome issue??
 
 playback
- - audio buffer
+ [x] audio buffer
 
+button
+ - start/stop/play
+ - play all
+ 
 send to server
  - array -> blob
  - ???

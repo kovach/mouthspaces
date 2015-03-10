@@ -1,0 +1,9 @@
+.recb {
+  background: #93a1a1;
+  width: 200px;
+  height: 200px;
+  font-size: 22pt;
+  /*moz-border-radius: 20px;
+  -webkit-border-radius: 20px;*/
+  border-radius: 20px;
+}
