@@ -8,6 +8,12 @@ var wrap_output = function(ws) {
     ws.send(JSON.stringify(msg));
   });
 
+  o.add({
+    binary: function(msg) {
+      ws.send(msg.array, {binary: true});
+    },
+  })
+
   return o;
 }
 
@@ -16,8 +22,21 @@ var wrap_input = function(ws) {
   var o = new obj();
 
   ws.onmessage = function(message) {
-    var msg = JSON.parse(message.data);
-    o.handle(msg);
+    switch (message.type) {
+      case 'Binary':
+        o.handle({
+          tag: 'binary',
+          type: 'Binary',
+          array: message.data,
+        });
+        break;
+      default:
+        console.log(message);
+
+        var msg = JSON.parse(message.data);
+        o.handle(msg);
+        break;
+    }
   }
 
   ws.onopen = function() {

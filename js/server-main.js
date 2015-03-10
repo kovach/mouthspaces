@@ -1,10 +1,20 @@
+var _ = require('underscore')
 var startServer = require('../base/server');
 
 var server = startServer(2222);
 server.add({
-  // {ws, id}
+  // {output, input, id}
   'connection': function(msg) {
-    // connection hook...
-    // console.log('connection: ', msg.id);
+    msg.input.add({
+      binary: function(bmsg) {
+        console.log('array: ', bmsg.array);
+        _.each(server.connections, function (io, id) {
+          if (id !== msg.id) {
+            console.log('forwarding to: ', id, bmsg);
+            io.output.handle(bmsg);
+          }
+        });
+      }
+    });
   },
 });

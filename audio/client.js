@@ -9,7 +9,13 @@ go = function() {
 stop = function() {
   console.log('len: ', rec.length);
   console.log('buffers: ', rec.buffers.length)
-  return stopRecord(rec);
+  var array = stopRecord(rec);
+
+  // Send it to server
+  io.output.handle({
+    tag: 'binary',
+    array: array,
+  })
 }
 
 play = function() {
@@ -84,9 +90,17 @@ var initStream = function(context) {
   }
 }
 
+var io;
+
 var init = function() {
 
-  baseClient(2222);
+  io = baseClient(2222);
+
+  io.input.add({
+    binary: function(msg) {
+      console.log('msg received');
+    }
+  });
 
   navigator.getUserMedia = (navigator.getUserMedia ||
                             navigator.webkitGetUserMedia ||
@@ -116,6 +130,5 @@ var init = function() {
      console.log("getUserMedia not supported?");
   }
 }
-function onButton
 
 module.exports = init;
