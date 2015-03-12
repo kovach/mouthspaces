@@ -77,8 +77,10 @@ var recorderProcess = function(e) {
   console.log('proc');
 
   var b = e.inputBuffer.getChannelData(0);
-  recorder.buffers.push(b);
-  recorder.length += b.length;
+  var rb = new Float32Array(b.length);
+  rb.set(b, 0);
+  recorder.buffers.push(rb);
+  recorder.length += rb.length;
 }
 
 var initStream = function(context) {
@@ -121,12 +123,14 @@ var init = function() {
                             navigator.msGetUserMedia);
 
   if (navigator.getUserMedia) {
+    console.log(window.AudioContext)
     window.AudioContext = window.AudioContext ||
                           window.webkitAudioContext;
+    console.log(window.AudioContext)
 
     var context = new AudioContext();
     recorder.context = context;
-    var bufferLen = 1024;
+    var bufferLen = 4096;
     var numChannels = 1;
 
     recorder.node = context.createScriptProcessor(

@@ -1,8 +1,7 @@
 https://developer.mozilla.org/en-US/docs/Web/API/AudioContext
 
 record audio
- [x] manually copy samples array
-  - chrome issue??
+ [x] copy samples array
 
 playback
  [x] audio buffer
