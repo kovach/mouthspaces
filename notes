@@ -2,26 +2,27 @@ https://developer.mozilla.org/en-US/docs/Web/API/AudioContext
 
 record audio
  [x] manually copy samples array
-   - chrome issue??
+  - chrome issue??
 
 playback
  [x] audio buffer
 
 button
- - start/stop/play
+ [x] start/stop/play
  - play all
- 
-send to server
- - array -> blob
- - ???
+
+[x] send to server
+
 
 display waveform
  - http://www.waveformjs.org/ ?
  - just plot sample array?
 
 server functions
- - accept connections
- - accept/validate audio blobs
+ [x] accept connections
+ [x] accept
+ - validate audio blobs
+   - check length
  - timestamp, insert blobs into list
  - delete old blobs
 

@@ -12,7 +12,7 @@ var wrap_output = function(ws) {
     binary: function(msg) {
       ws.send(msg.array, {binary: true});
     },
-  })
+  });
 
   return o;
 }
@@ -22,17 +22,15 @@ var wrap_input = function(ws) {
   var o = new obj();
 
   ws.onmessage = function(message) {
-    switch (message.type) {
-      case 'Binary':
+    switch (typeof (message.data)) {
+      case 'object':
         o.handle({
           tag: 'binary',
           type: 'Binary',
           array: message.data,
         });
         break;
-      default:
-        console.log(message);
-
+      case 'string':
         var msg = JSON.parse(message.data);
         o.handle(msg);
         break;

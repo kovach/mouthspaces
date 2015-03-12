@@ -1,3 +1,5 @@
+var buffer = require('buffer');
+var toBuffer = require('blob-to-buffer')
 var baseClient = require('../base/client');
 
 
@@ -10,6 +12,7 @@ stop = function() {
   console.log('len: ', rec.length);
   console.log('buffers: ', rec.buffers.length)
   var array = stopRecord(rec);
+  console.log('array: ', array);
 
   // Send it to server
   io.output.handle({
@@ -99,6 +102,16 @@ var init = function() {
   io.input.add({
     binary: function(msg) {
       console.log('msg received');
+      toBuffer(msg.array, function(err, buffer) {
+        var arr = new Float32Array(buffer.length / 4);
+        for (var i = 0; i * 4 < buffer.length; i++) {
+          arr[i] = buffer.readFloatLE(i*4);
+        }
+
+        rec.length = arr.length;
+        rec.output = arr;
+        play();
+      });
     }
   });
 

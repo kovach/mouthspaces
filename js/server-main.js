@@ -16,5 +16,7 @@ server.add({
         });
       }
     });
+
+    msg.output.handle({tag: 'id', id: msg.id});
   },
 });
