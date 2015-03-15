@@ -12,6 +12,7 @@ button
 
 [x] send to server
 
+display messages on client
 
 display waveform
  - http://www.waveformjs.org/ ?
@@ -28,3 +29,8 @@ server functions
  storing blobs:
   - array of [blob id, blob data, timestamp, connection id]
     - sorted by timestamp
+
+low priority:
+
+audio processing?
+  - noise reduction?

@@ -10,7 +10,7 @@ var wrap_output = function(ws) {
 
   o.add({
     binary: function(msg) {
-      ws.send(msg.array, {binary: true});
+      ws.send(msg.buffer, {binary: true});
     },
   });
 
@@ -24,10 +24,10 @@ var wrap_input = function(ws) {
   ws.onmessage = function(message) {
     switch (typeof (message.data)) {
       case 'object':
+
         o.handle({
           tag: 'binary',
-          type: 'Binary',
-          array: message.data,
+          buffer: message.data,
         });
         break;
       case 'string':
