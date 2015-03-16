@@ -1,4 +1,6 @@
 _ = require('underscore');
 var client = require('../audio/client');
 
-client(2222);
+$(document).ready(function() {
+  client(2222);
+});

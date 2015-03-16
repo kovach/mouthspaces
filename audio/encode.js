@@ -1,7 +1,7 @@
 var encode = function(entry) {
   var header = entry.header;
   var dataBuffer = entry.buffer;
-  var headerString = JSON.stringify(entry);
+  var headerString = JSON.stringify(header);
 
   var headerLength = Buffer.byteLength(headerString);
   var dataLength = dataBuffer.length;

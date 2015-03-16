@@ -1,4 +1,5 @@
-https://developer.mozilla.org/en-US/docs/Web/API/AudioContext
+issues:
+  - 0 length buffer issue
 
 record audio
  [x] copy samples array
@@ -13,17 +14,18 @@ button
 [x] send to server
 
 display messages on client
-
-display waveform
- - http://www.waveformjs.org/ ?
- - just plot sample array?
+  [x] basic list
+  - colored/sized divs
+  - waveforms
+   - http://www.waveformjs.org/ ?
+   - just plot sample array?
 
 server functions
  [x] accept connections
  [x] accept
  - validate audio blobs
    - check length
- - timestamp, insert blobs into list
+ [x] timestamp, insert blobs into list
  - delete old blobs
 
  storing blobs:

@@ -24,7 +24,6 @@ var wrap_input = function(ws) {
   ws.onmessage = function(message) {
     switch (typeof (message.data)) {
       case 'object':
-
         o.handle({
           tag: 'binary',
           buffer: message.data,

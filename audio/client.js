@@ -2,6 +2,19 @@ var buffer = require('buffer');
 var toBuffer = require('blob-to-buffer')
 var baseClient = require('../base/client');
 var encode = require('./encode');
+ui = require('./ui');
+
+var mkRecorder = function() {
+  return {
+    recording: false
+  }
+}
+
+// GLOBAL STATE
+entryLog = [];
+var recorder = mkRecorder();
+rec = recorder;
+var bar;
 
 
 // Debugging stuff
@@ -13,7 +26,6 @@ stop = function() {
   console.log('len: ', rec.length);
   console.log('buffers: ', rec.buffers.length)
   var array = stopRecord(rec);
-  console.log('array: ', array);
 
   // Send it to server
   io.output.handle({
@@ -64,13 +76,6 @@ var mkBuffer = function(rec) {
   return arrayBuffer;
 }
 
-var mkRecorder = function() {
-  return {
-    recording: false
-  }
-}
-var recorder = mkRecorder();
-rec = recorder;
 
 var recorderProcess = function(e) {
   if (!recorder.recording) return;
@@ -98,15 +103,18 @@ var initStream = function(context) {
 var io;
 
 var handleMessage = function(msg) {
-  console.log('msg received ', msg);
 
   toBuffer(msg.buffer, function(err, buffer) {
 
     var entry = encode.decode(buffer);
-    console.log(entry.header);
-    console.log(entry.buffer);
+    console.log('header: ', entry.header);
 
     var arr = encode.decodeAudio(entry.buffer);
+
+    entry.audio = arr;
+
+    entryLog.push(entry);
+    ui.addEntry(bar, entry.header);
 
     rec.length = arr.length;
     rec.output = arr;
@@ -118,6 +126,8 @@ var init = function() {
 
   io = baseClient(2222);
 
+  bar = ui.makeBar();
+
   io.input.add({
     binary: handleMessage,
   });
@@ -128,10 +138,8 @@ var init = function() {
                             navigator.msGetUserMedia);
 
   if (navigator.getUserMedia) {
-    console.log(window.AudioContext)
     window.AudioContext = window.AudioContext ||
                           window.webkitAudioContext;
-    console.log(window.AudioContext)
 
     var context = new AudioContext();
     recorder.context = context;
